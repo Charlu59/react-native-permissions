@@ -23,6 +23,7 @@ const RNPTypes = {
 		'microphone',
 		'contacts',
 		'event',
+		'phone',
 		'photo',
 	]
 }
