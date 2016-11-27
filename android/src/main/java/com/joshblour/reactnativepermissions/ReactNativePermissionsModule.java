@@ -30,6 +30,7 @@ public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
     MICROPHONE,
     CONTACTS,
     EVENT,
+    PHONE,
     PHOTO;
   }
 
@@ -57,14 +58,7 @@ public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
     int result = PermissionChecker.checkSelfPermission(this.reactContext, permission);
     switch (result) {
       case PermissionChecker.PERMISSION_DENIED:
-        // PermissionDenied could also mean that we've never asked for permission yet.
-        // Use shouldShowRequestPermissionRationale to determined which on it is.
-        if (getCurrentActivity() != null) {
-          boolean deniedOnce = ActivityCompat.shouldShowRequestPermissionRationale(getCurrentActivity(), permission);
-          promise.resolve(deniedOnce ? "denied" : "undetermined");
-        } else {
-          promise.resolve("denied");
-        }
+        promise.resolve("denied");
         break;
       case PermissionChecker.PERMISSION_DENIED_APP_OP:
         promise.resolve("denied");
@@ -126,6 +120,8 @@ public class ReactNativePermissionsModule extends ReactContextBaseJavaModule {
         return Manifest.permission.READ_CONTACTS;
       case EVENT:
         return Manifest.permission.READ_CALENDAR;
+      case PHONE:
+        return Manifest.permission.READ_PHONE_STATE;
       case PHOTO:
         return Manifest.permission.READ_EXTERNAL_STORAGE;
       default:
